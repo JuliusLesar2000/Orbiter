@@ -1,5 +1,3 @@
-package com.prchandr;
-
 import javafx.scene.shape.Circle;
 
 public class Planet extends Circle {
@@ -7,5 +5,8 @@ public class Planet extends Circle {
 	
 	public Planet(double m) {
 		this.mass = m;
+	}
+	public double getMass() {
+		return mass;
 	}
 }
