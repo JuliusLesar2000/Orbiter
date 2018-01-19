@@ -1,4 +1,3 @@
-
 import javafx.application.Application; 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -13,7 +12,7 @@ import javafx.stage.Stage;
  * @author Alex Wang
  * 9/1/16
  */
-public class DraggableObjects extends Application{
+public class Orbit extends Application{
 	int m = 0;
 	public void start(Stage primaryStage){
 
@@ -29,16 +28,8 @@ public class DraggableObjects extends Application{
 		circle1.setRadius(10);
 		circle2.setRadius(10);
 
-		//set location
-		//circle1.setCenterX(40);
-		//circle1.setCenterY(40);
-		//circle2.setCenterX(120);
-		//circle2.setCenterY(150);
 		Scene scene = new Scene(pane, 1500,1500);
-		primaryStage.setTitle("I like circles"); // Set the stage title
-		primaryStage.setScene(scene); // Place the scene in the stage
-		primaryStage.show();
-
+		
 		//set the distance on the pane
 		/*
 		 * Text dist = new Text();
@@ -48,33 +39,34 @@ public class DraggableObjects extends Application{
 	    dist.setY(circle1.getCenterY()+(circle2.getCenterY()-circle1.getCenterY())/2);
 		 */
 
-
-
-
-
 		//sets the line connecting the circles
 		Circle circlelin = new Circle();
 		Circle circlelin2 = new Circle();
 		circlelin.setRadius(10);
 		circlelin2.setRadius(10);
-		circlelin.setStroke(Color.WHITE);
-		circlelin2.setStroke(Color.WHITE);
-		circlelin.setFill(Color.WHITE);
-		circlelin2.setFill(Color.WHITE);
+		
+		circlelin.setStroke(Color.TRANSPARENT);
+		circlelin2.setStroke(Color.TRANSPARENT);
+		circlelin.setFill(Color.TRANSPARENT);
+		circlelin2.setFill(Color.TRANSPARENT);
+		
 		Line lin = new Line();
 		lin.setStartX(circle1.getCenterX());
 		lin.setStartY(circle1.getCenterY());
 		lin.setStroke(Color.WHITE);
+		
 		Line lin2 = new Line();
 		lin2.setStartX(circle2.getCenterX());
 		lin2.setStartY(circle2.getCenterY());
 		lin2.setStroke(Color.WHITE);
+		
 		pane.setOnMouseClicked(e->{
 			if(m==1) {
 				circle2.setCenterX(e.getX());
 				circle2.setCenterY(e.getY());
 				circle2.setStroke(Color.BLACK);
 				m++;
+				
 				lin2.setStroke(Color.BLACK);
 				lin2.setStartX(e.getX());
 				lin2.setStartY(e.getY());
@@ -83,11 +75,13 @@ public class DraggableObjects extends Application{
 				circlelin2.setCenterX(750);
 				circlelin2.setCenterY(500);
 			}
+			
 			if(m==0) {
 				circle1.setCenterX(e.getX());
 				circle1.setCenterY(e.getY());
 				circle1.setStroke(Color.BLACK);
 				m++;
+				
 				lin.setStroke(Color.BLACK);
 				lin.setStartX(e.getX());
 				lin.setStartY(e.getY());
@@ -97,18 +91,16 @@ public class DraggableObjects extends Application{
 				circlelin.setCenterX(740);
 				circlelin.setCenterY(500);
 			}
-
-
-
-
 		});
 		
 
 		pane.getChildren().addAll(circle1,circle2,lin,lin2,circlelin,circlelin2);
+		
 		lin.setOnMouseDragged(e->{
 			lin.setEndX(e.getX());
 			lin.setEndY(e.getY());
 		});
+		
 		//checks for when one of the circles is dragged and updates values
 		circle1.setOnMouseDragged(e->{
 
@@ -147,6 +139,10 @@ public class DraggableObjects extends Application{
 		double magA = 1/Math.pow(Math.sqrt(Math.pow((circle1.getCenterX()-circle2.getCenterX()),2)+Math.pow((circle1.getCenterY()-circle2.getCenterY()),2)),3)*
 				6.63*Math.pow(10,-11)*1000;
 		double[] accelerationC1 = {magA*(circle2.getCenterX()-circle1.getCenterX()),magA*(circle2.getCenterY()-circle1.getCenterY())};
+	
+		primaryStage.setTitle("Orbit Simulator"); // Set the stage title
+		primaryStage.setScene(scene); // Place the scene in the stage
+		primaryStage.show();
 	}
 	//public static void findPlanet
 	public static void main(String[] args) {
