@@ -3,9 +3,9 @@ import javafx.scene.shape.Circle;
 public class Planet extends Circle {
 	private double mass;
 	
-	public double[] velocity;
-	public double[] acceleration;
-	public double[] position;
+	public double[] vel;
+	public double[] acc;
+	public double[] pos;
 	
 	public Planet(double m) {
 		this.mass = m;
@@ -16,30 +16,35 @@ public class Planet extends Circle {
 	}
 	
 	public double[] getVelocity() {
-		return velocity;
+		return vel;
 	}
 	
 	public void setVelocity(double[] v) {
-		velocity = v;
+		vel = v;
 	}
 	
 	public double[] getAccel() {
-		return acceleration;
+		return acc;
 	}
 	
 	public void setAccel(double[] accel) {
-		acceleration = accel;
+		acc = accel;
 	}
 	
 	public double[] getPosition() {
-		return position;
+		return pos;
 	}
 	
-	public void setPosition(double[] pos) {
-		position = pos;
+	public void setPosition(double[] p) {
+		pos = p;
+	}
+	
+	public void updatePos(double cycle) {
+		pos[0]+=vel[0]*cycle;
+		pos[1]+=vel[1]*cycle;
 	}
 	
 	public double getDistance(Planet m) {
-		return Math.sqrt(Math.pow(m.position[0]-this.position[0],2)+Math.pow(m.position[1]-this.position[1],2));
+		return Math.sqrt(Math.pow(m.pos[0]-this.pos[0],2)+Math.pow(m.pos[1]-this.pos[1],2));
 	}
 }
