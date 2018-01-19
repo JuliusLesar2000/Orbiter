@@ -132,7 +132,7 @@ public class Orbit extends Application{
 		});
 		circlelin2.setOnMouseDragged(e->{
 			circlelin2.setCenterX(e.getX());
-			circlelin2.setCenterY(e.getY());
+			 circlelin2.setCenterY(e.getY());
 			lin2.setEndX(e.getX());
 			lin2.setEndY(e.getY());
 		});
