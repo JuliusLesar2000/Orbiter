@@ -66,31 +66,33 @@ public class Orbit extends Application{
 				circle2.setCenterY(e.getY());
 				circle2.setStroke(Color.BLACK);
 				m++;
-				
 				lin2.setStroke(Color.BLACK);
 				lin2.setStartX(e.getX());
 				lin2.setStartY(e.getY());
-				lin2.setEndX(750);
-				lin2.setEndY(500);
 				circlelin2.setCenterX(750);
 				circlelin2.setCenterY(500);
+				lin2.setEndX(750);
+				lin2.setEndY(500);
+				
 			}
-			
 			if(m==0) {
 				circle1.setCenterX(e.getX());
 				circle1.setCenterY(e.getY());
 				circle1.setStroke(Color.BLACK);
 				m++;
-				
 				lin.setStroke(Color.BLACK);
 				lin.setStartX(e.getX());
 				lin.setStartY(e.getY());
-				
-				lin.setEndX(740);
-				lin.setEndY(500);
 				circlelin.setCenterX(740);
 				circlelin.setCenterY(500);
+				lin.setEndX(740);
+				lin.setEndY(500);
+				
 			}
+
+
+
+
 		});
 		
 
