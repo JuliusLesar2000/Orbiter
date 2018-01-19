@@ -14,12 +14,14 @@ import javafx.stage.Stage;
  */
 public class Orbit extends Application{
 	int m = 0;
+	private final double M1 = 100;
+	private final double M2 = 200;
 	public void start(Stage primaryStage){
-
+		
 		//creates panes and circle and colors them
 		Pane pane = new Pane();
-		Circle circle1 = new Circle();
-		Circle circle2 = new Circle();
+		Planet circle1 = new Planet(M1);
+		Planet circle2 = new Planet(M2);
 		circle1.setFill(Color.WHITE);
 		circle1.setStroke(Color.WHITE);
 		circle2.setFill(Color.WHITE);
