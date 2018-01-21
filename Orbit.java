@@ -1,7 +1,12 @@
+package finalProject;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application; 
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -9,7 +14,7 @@ import javafx.stage.Stage;
 /**
  * Constructs two circles and finds the distance in pixels between them
  * <p>If clicked and dragged, the distance will change accordingly
- * @author Alex Wang
+ * @author Alex Wang and Le Do
  * 9/1/16
  */
 public class Orbit extends Application{
@@ -17,9 +22,10 @@ public class Orbit extends Application{
 	private final double M1 = 100;
 	private final double M2 = 200;
 	public void start(Stage primaryStage){
-		
+
 		//creates panes and circle and colors them
 		Pane pane = new Pane();
+		Canvas canvas = new Canvas(1000, 1000);
 		Planet circle1 = new Planet(M1);
 		Planet circle2 = new Planet(M2);
 		circle1.setFill(Color.WHITE);
@@ -30,8 +36,8 @@ public class Orbit extends Application{
 		circle1.setRadius(10);
 		circle2.setRadius(10);
 
-		Scene scene = new Scene(pane, 1500,1500);
-		
+		Scene scene = new Scene(pane, 1000,1000);
+
 		//set the distance on the pane
 		/*
 		 * Text dist = new Text();
@@ -46,22 +52,22 @@ public class Orbit extends Application{
 		Circle circlelin2 = new Circle();
 		circlelin.setRadius(10);
 		circlelin2.setRadius(10);
-		
+
 		circlelin.setStroke(Color.TRANSPARENT);
 		circlelin2.setStroke(Color.TRANSPARENT);
 		circlelin.setFill(Color.TRANSPARENT);
 		circlelin2.setFill(Color.TRANSPARENT);
-		
+
 		Line lin = new Line();
 		lin.setStartX(circle1.getCenterX());
 		lin.setStartY(circle1.getCenterY());
 		lin.setStroke(Color.WHITE);
-		
+
 		Line lin2 = new Line();
 		lin2.setStartX(circle2.getCenterX());
 		lin2.setStartY(circle2.getCenterY());
 		lin2.setStroke(Color.WHITE);
-		
+
 		pane.setOnMouseClicked(e->{
 			if(m==1) {
 				circle2.setCenterX(e.getX());
@@ -75,7 +81,7 @@ public class Orbit extends Application{
 				circlelin2.setCenterY(500);
 				lin2.setEndX(750);
 				lin2.setEndY(500);
-				
+
 			}
 			if(m==0) {
 				circle1.setCenterX(e.getX());
@@ -89,25 +95,18 @@ public class Orbit extends Application{
 				circlelin.setCenterY(500);
 				lin.setEndX(740);
 				lin.setEndY(500);
-				
+
 			}
-
-
-
-
 		});
-		
+		pane.getChildren().addAll(lin,lin2,circle1,circle2,circlelin,circlelin2, canvas);
 
-		pane.getChildren().addAll(lin,lin2,circle1,circle2,circlelin,circlelin2);
-		
 		lin.setOnMouseDragged(e->{
 			lin.setEndX(e.getX());
 			lin.setEndY(e.getY());
 		});
-		
+
 		//checks for when one of the circles is dragged and updates values
 		circle1.setOnMouseDragged(e->{
-
 			circle1.setCenterX(e.getX());
 			circle1.setCenterY(e.getY());
 			lin.setStartX(e.getX());
@@ -136,14 +135,28 @@ public class Orbit extends Application{
 		});
 		circlelin2.setOnMouseDragged(e->{
 			circlelin2.setCenterX(e.getX());
-			 circlelin2.setCenterY(e.getY());
+			circlelin2.setCenterY(e.getY());
 			lin2.setEndX(e.getX());
 			lin2.setEndY(e.getY());
 		});
+
+
+		GraphicsContext gc1 = canvas.getGraphicsContext2D();
+		gc1.setStroke(Color.RED);
+		gc1.setFill(Color.RED);	
+		new AnimationTimer(){
+			public void handle(long currentNanoTime){
+				if(m<2){
+					gc1.strokeArc(circle1.getPosition()[0], circle1.getPosition()[1], 10, 10, 0, 360, ArcType.ROUND );
+					gc1.strokeArc(circle2.getPosition()[0], circle2.getPosition()[1], 10, 10, 0, 360, ArcType.ROUND);
+				}
+			}
+		}.start();
+
 		double magA = 1/Math.pow(Math.sqrt(Math.pow((circle1.getCenterX()-circle2.getCenterX()),2)+Math.pow((circle1.getCenterY()-circle2.getCenterY()),2)),3)*
 				6.63*Math.pow(10,-11)*1000;
 		double[] accelerationC1 = {magA*(circle2.getCenterX()-circle1.getCenterX()),magA*(circle2.getCenterY()-circle1.getCenterY())};
-	
+
 		primaryStage.setTitle("Orbit Simulator"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.show();
