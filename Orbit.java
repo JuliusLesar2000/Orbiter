@@ -98,7 +98,7 @@ public class Orbit extends Application{
 
 			}
 		});
-		pane.getChildren().addAll(lin,lin2,circle1,circle2,circlelin,circlelin2, canvas);
+		pane.getChildren().addAll(canvas,lin,lin2,circle1,circle2,circlelin,circlelin2);
 
 		lin.setOnMouseDragged(e->{
 			lin.setEndX(e.getX());
