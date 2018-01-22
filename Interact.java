@@ -1,5 +1,3 @@
-
-
 public class Interact {
 	private Planet a;
 	private Planet b;
@@ -16,7 +14,6 @@ public class Interact {
 			d = new double[] {-10,-10};
 		}
 	}
-
 
 	public double findDistance(){
 		return a.getDistance(b);
